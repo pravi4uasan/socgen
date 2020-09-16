@@ -1,5 +1,8 @@
 package com.socgen.serviceimpl;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,11 +15,24 @@ public class EmployeServiceImpl  implements EmployeService{
 	@Autowired
 	private EmployeRepository employeRepository;
 
-	public void saveEmployee(Employee employeeRequest) {
+	public int saveEmployee(Employee employeeRequest) {
 		
-		employeRepository.save(employeeRequest);
+		Employee id=employeRepository.save(employeeRequest);
+		return id.getId();
 		
 		
+	}
+
+	@Override
+	public List<Employee> listofEmployees() {
+		
+		return employeRepository.findAll();
+	}
+
+	@Override
+	public Optional<Employee> employeDetails(int id) {
+		
+		return employeRepository.findById(id);
 	}
 
 }
